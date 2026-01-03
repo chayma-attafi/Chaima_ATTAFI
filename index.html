@@ -1,130 +1,218 @@
 <!DOCTYPE HTML>
-
-<html>
+<html lang="en">
 
 <head>
-	<title>CHAIMA ATTAFI's Personal Website</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="assets/css/main.css" />
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons/css/academicons.min.css">
-	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" />
-	</noscript>
+    <title>Chaima Attafi | AI Engineer</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --accent-color: #06b6d4;
+            --bg-dark: #0f172a;
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+        }
+
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-main); margin: 0; }
+
+        /* --- NAVBAR --- */
+        #nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: 60px;
+            background: var(--glass-bg); backdrop-filter: blur(10px); z-index: 9999;
+            display: flex; justify-content: flex-end; align-items: center; padding: 0 5%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #nav ul { display: flex; list-style: none; margin: 0; padding: 0; align-items: center; }
+        #nav ul.links li a { color: #fff; text-decoration: none; padding: 0 15px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
+        #nav ul.links li.active a { color: var(--primary-color); }
+        #nav ul.icons { margin-left: 20px; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 20px; }
+        #nav ul.icons li a { font-size: 1.1rem; margin-left: 15px; color: #cbd5e1; }
+
+        #wrapper { padding-top: 60px; }
+        #main { max-width: 1000px; margin: 2rem auto; background: rgba(255, 255, 255, 0.03); border-radius: 12px; padding: 2rem; border: 1px solid rgba(255,255,255,0.05); }
+
+        /* --- CARDS --- */
+        .milestone-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 2rem; }
+        .milestone-card { 
+            background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; 
+            border: 1px solid rgba(255,255,255,0.1); transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .milestone-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .milestone-card img { width: 100%; height: 180px; object-fit: cover; display: block; opacity: 0.85; transition: opacity 0.3s; }
+        .milestone-card:hover img { opacity: 1; }
+        .milestone-content { padding: 1.5rem; }
+
+        #intro { height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        #intro h1 { font-size: 4rem; margin: 0; background: linear-gradient(to right, #818cf8, #22d3ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        #navPanelToggle, #navPanel { display: none !important; }
+
+        @media screen and (max-width: 736px) {
+            #nav { justify-content: center; padding: 0; }
+            #nav ul.icons { display: none; }
+            #intro h1 { font-size: 2.5rem; }
+        }
+    </style>
 </head>
 
-<body class="is-preload">
+<body>
 
-	<!-- Wrapper -->
-	<div id="wrapper" class="fade-in">
+    <div id="wrapper">
+        <nav id="nav">
+            <ul class="links">
+                <li class="active"><a href="index.html">Bio</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="cv.html">Resume</a></li>
+                <li><a href="certif.html">Certificates</a></li>
+            </ul>
+            <ul class="icons">
+                <li><a href="https://www.linkedin.com/in/chaima-attafi-914a56208" class="fa-brands fa-linkedin"></a></li>
+                <li><a href="https://github.com/chayma-attafi" class="fa-brands fa-github"></a></li>
+            </ul>
+        </nav>
 
-		<!-- Intro -->
-		<div id="intro">
-			<h1>CHAIMA ATTAFI</h1>
-			<p>As a dedicated Software Engineer with a strong foundation in Mathematics and Computer Engineering, 
-				complemented by an academic background in Urban Planning, I am eager to leverage my diverse expertise 
-				to tackle complex software development challenges from unique perspectives. I am passionate about 
-				integrating technology and sustainability, I aim to innovate within the fields of urban planning and 
-				software development to drive impactful solutions.</p>
-			<ul class="actions">
-				<li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
-			</ul>
-		</div>
+        <div id="intro">
+            <h1>CHAIMA ATTAFI</h1>
+            <p style="max-width: 700px; color: #94a3b8; font-size: 1.1rem;">
+                AI Engineer specializing in <span style="color: var(--accent-color);">Agentic AI</span>, RAG, LLM, and MCP.
+            </p>
+        </div>
 
-		<!-- Header -->
-		<header id="header">
-			<a href="index.html" class="logo">Personal Website</a>
-		</header>
+        <div id="main">
+            <!-- Bio -->
+            <section style="display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; margin-bottom: 4rem;">
+                <img src="images/chaima.jpeg" alt="Chaima" style="width: 180px; height: 180px; object-fit: cover; border-radius: 50%; border: 4px solid var(--primary-color); box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);">
+                <div style="flex: 1; min-width: 300px;">
+                    <h2 style="margin-top: 0;">The Mission</h2>
+                    <p>I build systems that bridge the gap between research and real-world application, leveraging Generative AI and Multi-Agent Systems to create ethical, high-performance, and scalable solutions.</p>
+                </div>
+            </section>
 
-		<!-- Nav -->
-		<nav id="nav">
-			<ul class="links">
-				<li class="active"><a href="index.html">About me</a></li>
-				<li><a href="certif.html"><i class="fa fa-certificate"></i> Certificates</a></li>
-				<!--<li><a href="publications.html">Publications</a></li>-->
-				 <li><a href="cv.html">Resume</a></li> 
-				<li><a href="projects.html">Projects</a></li>
-			</ul>
-			<ul class="icons">
-				<li><a href="https://www.linkedin.com/in/chaima-attafi-914a56208"
-						class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
-				<li><a href="https://github.com/chayma-attafi" class="icon brands fa-github"><span
-							class="label">GitHub</span></a></li>
-				<li><a href="https://x.com/ChaymaAttafi2" class="icon brands fa-twitter"><span
-							class="label">Twitter</span></a></li>
-				<!--<li><a href="----"
-						class="ai ai-google-scholar-square ai-2x"></a></li>-->
-			</ul>
-		</nav>
+            <!-- Activities Section -->
+            <section style="margin-top: 6rem;">
+                <h2 style="text-align: center;">Professional Journey</h2>
+                <div class="milestone-grid">
+                    
+                    <div class="milestone-card" style="border-top: 3px solid #10b981;">
+                        <img src="images/succ/work.jpeg" alt="Work">
+                        <div class="milestone-content">
+                            <span style="color: #10b981; font-size: 0.8rem; font-weight: bold;">Current</span>
+                            <h3>AI Engineer Consultant @ Talan</h3>
+                            <p>Architecting GraphRAG and multi-agent systems for code modernization.</p>
+                        </div>
+                    </div>
+                    <div class="milestone-card" style="border-top: 3px solid #8b5cf6;">
+                        <img src="images/succ/team.jpeg" alt="Community">
+                        <div class="milestone-content">
+                            <span style="color: #8b5cf6; font-size: 0.8rem; font-weight: bold;">December 2025</span>
+                            <h3>Innovation Team</h3>
+                            <p>Special moments with the team Innovation, celebrating new year 2026</p>
+                        </div>
+                    </div>
 
-		<!-- Main -->
-		<div id="main">
+                    <div class="milestone-card" style="border-top: 3px solid #fbbf24;">
+                        <img src="images/succ/graduation.jpeg" alt="Graduation">
+                        <div class="milestone-content">
+                            <span style="color: #fbbf24; font-size: 0.8rem; font-weight: bold;"> 24 September 2024</span>
+                            <h3>Engineering Degree</h3>
+                            <p>Specializing in Software Engineering and AI at <strong>ESPRIT</strong>.</p>
+                        </div>
+                    </div>
 
-			<!-- Featured Post -->
-			<article class="post featured">
-				<header class="major">
-					<a href="#" class="image main"><img src="images/chaima.jpeg" alt="" /></a>
-					<h2><a href="#">Bio</a></h2>
-					<p> I am Chaima Attafi, an Urban Planner and Software Development Engineer with a unique blend 
-						of skills in urban planning and computer engineering. I began my career with a degree in urban
-						 planning, which sparked my interest in integrating technology and sustainability into urban 
-						 development. This led me to pursue a degree in computer science. I have hands-on experience 
-						 in both front-end and back-end development, using technologies like Angular, Spring Boot, a
-						 nd .NET. Additionally, I am proficient in machine learning, Python, and Agile methodologies, 
-						 which I have applied in various projects.
-				</header>
-			</article>
+                    <div class="milestone-card">
+                        <img src="images/succ/bootcamp2025.jpeg" alt="Project Ball">
+                        <div class="milestone-content">
+                            <span style="color: var(--accent-color); font-size: 0.8rem;">April 2025</span>
+                            <h3> Bootcamp 2025 - Talan Tunisie</h3>
+                            <p>Working with different teams, Learned from experts, gained new skills, and integrated into a dynamic and innovative environment. </p>
+                        </div>
+                    </div>
 
-			<!-- Posts -->
+                    <div class="milestone-card" style="border-top: 3px solid #fbbf24;">
+                        <img src="images/succ/GDSC.jpeg" alt="Graduation">
+                        <div class="milestone-content">
+                            <span style="color: #fbbf24; font-size: 0.8rem; font-weight: bold;">January 2024</span>
+                            <h3>Leading workshop on Symfony at GDSC</h3>
+                            <p>Fostering technical growth as GDSC Lead and AI community organizer. <strong>ESPRIT</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-			<!-- Footer -->
-			<ul>
-				<h4>News</h4>
-				<li>[July 2024] Participated in <a href="https://www.linkedin.com/posts/chaima-attafi-914a56208_cocoesprit-baldeprojets-studentlife-activity-7199804829064445952-QAdC?utm_source=share&utm_medium=member_desktop" style="color: blue">Project Ball 2024 </a> </li>
-				<li>[February 2024] Participated in <a href="https://www.linkedin.com/feed/update/urn:li:activity:7171182974820859905/" style="color: blue">PI READY with GDSC ESPRIT </a> as a speaker</li>
-				<li>[July 2023] Joined <a href="https://www.linkedin.com/in/chaima-attafi-914a56208/details/featured/1716572848483/single-media-viewer?type=IMAGE&profileId=ACoAADTWOqABJAFPxXfykhqK1BxG1Gp76wrlYwg&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_featured_details%3BcBOGNlz%2BRpy2SsymMFxQtQ%3D%3D" style="color: blue">Project Ball 2023 </a>as a participant </li>
-				<li>[July 2022] Joined <a href="https://ai-hack-tunisia.com/" style="color: blue">AI Hack </a> as an organizer</li>
-				<li>[July 2022] Joined <a href="https://deeplearningindaba.com/2022/" style="color: blue">Deep Learning INDABA</a> as an organizer</li>
-				
-			</ul>
-		</div>
+            <!-- Success Section -->
+            <section style="margin-top: 4rem;">
+                <h2 style="text-align: center;">Success & Milestones</h2>
+                <div class="milestone-grid">
 
-		<!-- Footer -->
-		<footer id="footer">
-			<section class="split contact">
-				<section>
-					<h3>Email</h3>
-					<p><a href="#">chayma.attafi@esprit.tn</a></p>
-				</section>
-				<section>
-					<h3>Social</h3>
-					<ul class="icons alt">
-						<li><a href="https://www.linkedin.com/in/chaima-attafi-914a56208"
-								class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
-						<li><a href="https://github.com/chayma-attafi" class="icon brands fa-github"><span
-									class="label">GitHub</span></a></li>
-						<li><a href="https://x.com/ChaymaAttafi2" class="icon brands fa-twitter"><span
-									class="label">Twitter</span></a></li>
-						<!--<li><a href="------"
-								class="ai ai-google-scholar-square ai-2x"></a></li>-->
-					</ul>
-				</section>
-			</section>
-		</footer>
+                    <div class="milestone-card">
+                        <img src="images/succ/blid2025.jpeg" alt="Project Ball">
+                        <div class="milestone-content">
+                            <span style="color: var(--accent-color); font-size: 0.8rem;">September 2025</span>
+                            <h3> BLID 2025</h3>
+                            <p> I joined Arab-German Summer School on Biomedical Imaging with Deep Learning. I learned about biomedical imaging and deep learning, from fundamentals to applications like segmentation, uncertainty estimation, and vision transformers.</p>
+                        </div>
+                    </div>
 
-		<!-- Copyright -->
+                    <div class="milestone-card">
+                        <img src="images/succ/grandpublique.jpeg" alt="Project Ball">
+                        <div class="milestone-content">
+                            <span style="color: var(--accent-color); font-size: 0.8rem;">July 2024</span>
+                            <h3> Audience Award</h3>
+                            <p>Awarded in recognition of our efforts to publish our research paper titled "Mirror of Life". The paper focuses on gene editing and the integration of Digital Twin technology to revolutionize biotechnological solutions. </p>
+                        </div>
+                    </div>
+                    <div class="milestone-card">
+                        <img src="images/succ/aiAcademy.jpeg" alt="Speaker">
+                        <div class="milestone-content">
+                            <span style="color: var(--accent-color); font-size: 0.8rem;">June 2024</span>
+                            <h3>AI for Predictive Maintenance Training</h3>
+                            <p>First Place in AI for Predictive Maintenance Training program with NVIDIA & ESPRIT</p>
+                        </div>
+                    </div>
 
-	</div>
 
-	<!-- Scripts -->
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/jquery.scrollex.min.js"></script>
-	<script src="assets/js/jquery.scrolly.min.js"></script>
-	<script src="assets/js/browser.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
+                <div class="milestone-card">
+                    <img src="images/succ/PFA.jpeg" alt="AI Hack">
+                    <div class="milestone-content">
+                        <span style="color: var(--accent-color); font-size: 0.8rem;">Feb  2024</span>
+                        <h3>PI project celebrating Co&Co</h3>
+                        <p>Development of a carpooling and roommate application for ESPRIT students</p>
+                    </div>
+                </div>
+            </div>
 
+            <div class="milestone-card">
+                <img src="images/succ/AIHack2022.png" alt="AI Hack">
+                <div class="milestone-content">
+                    <span style="color: var(--accent-color); font-size: 0.8rem;">August 2022</span>
+                    <h3>AI Hack Tunisia</h3>
+                    <p>Organized one of the largest hackathons in the region.</p>
+                </div>
+            </div>
+        </div>
+            </section>
+
+            
+        </div>
+
+        <footer id="footer" style="text-align: center; padding: 4rem 0;">
+            <div class="container">
+                <section>
+                    <h3 style="color: var(--accent-color);">Let's Build Something Intelligent</h3>
+                    <p>Reach out: <a href="mailto:chayma.attafi@esprit.tn" style="color: white; font-weight: 600;">chayma.attafi@esprit.tn</a></p>
+                    <div style="margin-top: 20px;">
+                        <a href="https://www.linkedin.com/in/chaima-attafi-914a56208" style="color: #94a3b8; font-size: 1.5rem; margin: 0 10px;"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="https://github.com/chayma-attafi" style="color: #94a3b8; font-size: 1.5rem; margin: 0 10px;"><i class="fa-brands fa-github"></i></a>
+                        <a href="https://x.com/ChaymaAttafi2" style="color: #94a3b8; font-size: 1.5rem; margin: 0 10px;"><i class="fa-brands fa-x-twitter"></i></a>
+                    </div>
+                </section>
+            </div>
+        </footer>
+    </div>
 </body>
-
 </html>

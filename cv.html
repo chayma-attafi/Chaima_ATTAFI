@@ -1,99 +1,255 @@
 <!DOCTYPE HTML>
-
-<html>
+<html lang="en">
 
 <head>
-	<title>Resume</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="assets/css/main.css" />
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons/css/academicons.min.css">
-	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" />
-	</noscript>
+    <title>Resume | Chaima Attafi</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --accent-color: #06b6d4;
+            --bg-dark: #0f172a;
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.03);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            margin: 0;
+            background-image: radial-gradient(circle at top right, #1e293b, #0f172a);
+        }
+
+        /* --- STICKY NAV --- */
+        #nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: 70px;
+            background: var(--glass-bg); backdrop-filter: blur(12px); z-index: 1000;
+            display: flex; justify-content: flex-end; align-items: center; padding: 0 5%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        #nav ul { display: flex; list-style: none; margin: 0; padding: 0; align-items: center; }
+        #nav ul.links li a { color: #cbd5e1; text-decoration: none; padding: 0 20px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; transition: 0.3s; }
+        #nav ul.links li.active a { color: var(--primary-color); }
+        #nav ul.icons { margin-left: 20px; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 20px; }
+        #nav ul.icons li a { font-size: 1.2rem; margin-left: 15px; color: #94a3b8; }
+
+        /* --- LAYOUT --- */
+        #wrapper { padding-top: 100px; padding-bottom: 50px; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        #navPanelToggle, #navPanel { display: none !important; }
+
+        /* --- SECTIONS --- */
+        .resume-section { margin-bottom: 4rem; }
+        .section-header { 
+            display: flex; align-items: center; gap: 15px; margin-bottom: 2rem; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;
+        }
+        .section-header i { color: var(--accent-color); font-size: 1.5rem; }
+        .section-header h2 { margin: 0; font-family: 'Poppins'; letter-spacing: 1px; text-transform: uppercase; font-size: 1.2rem; }
+
+        /* Timeline */
+        .timeline-item {
+            position: relative; padding-left: 35px; border-left: 2px solid var(--primary-color);
+            margin-bottom: 3rem;
+        }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -11px; top: 0; width: 20px; height: 20px;
+            background: var(--bg-dark); border: 3px solid var(--primary-color); border-radius: 50%;
+        }
+        .timeline-date { color: var(--accent-color); font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; display: block; }
+        .timeline-title { font-weight: 700; font-size: 1.3rem; margin: 0; color: #fff; }
+        .timeline-org { color: #818cf8; font-weight: 600; margin-bottom: 12px; display: block; }
+        .timeline-desc { font-size: 0.95rem; line-height: 1.7; color: #cbd5e1; }
+        .timeline-desc li { margin-bottom: 8px; }
+
+        /* Skill Pills */
+        .skill-group { margin-bottom: 1.5rem; }
+        .skill-group h4 { color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 10px; }
+        .skills-container { display: flex; flex-wrap: wrap; gap: 8px; }
+        .skill-badge {
+            background: rgba(99, 102, 241, 0.1); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.2);
+            padding: 5px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 500;
+        }
+
+        /* PDF Card */
+        .pdf-card {
+            background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px; padding: 40px; text-align: center;
+        }
+        .download-action {
+            display: inline-flex; align-items: center; gap: 12px;
+            background: linear-gradient(135deg, var(--primary-color), #4f46e5);
+            color: white; padding: 14px 30px; border-radius: 50px;
+            text-decoration: none; font-weight: 700; margin-bottom: 2rem;
+            transition: 0.3s;
+        }
+        .download-action:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4); }
+
+        .preview-window {
+            width: 100%; height: 600px; border-radius: 12px; background: #fff; overflow: hidden;
+        }
+
+        @media screen and (max-width: 768px) {
+            #nav { justify-content: center; height: auto; flex-direction: column; padding: 10px 0; }
+            .timeline-title { font-size: 1.1rem; }
+        }
+    </style>
 </head>
 
-<body class="is-preload">
+<body>
 
-	<!-- Wrapper -->
-	<div id="wrapper">
+    <nav id="nav">
+        <ul class="links">
+            <li><a href="index.html">Bio</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li class="active"><a href="cv.html">Resume</a></li>
+            <li><a href="certif.html">Certificates</a></li>
+        </ul>
+        <ul class="icons">
+            <li><a href="https://www.linkedin.com/in/chaima-attafi-914a56208" class="fa-brands fa-linkedin"></a></li>
+            <li><a href="https://github.com/chayma-attafi" class="fa-brands fa-github"></a></li>
+        </ul>
+    </nav>
 
-		<!-- Header -->
-		<header id="header">
-			<a href="index.html" class="logo">Personal website</a>
-		</header>
+    <div id="wrapper">
+        <div class="container">
+            
+            <!-- Expertise Section -->
+            <section class="resume-section">
+                <div class="section-header">
+                    <i class="fas fa-layer-group"></i>
+                    <h2>Technical Stack</h2>
+                </div>
+                <div class="skill-group">
+                    <h4>Artificial Intelligence & Agents</h4>
+                    <div class="skills-container">
+                        <span class="skill-badge">Agentic AI</span><span class="skill-badge">GraphRAG</span>
+                        <span class="skill-badge">LLM Architectures</span><span class="skill-badge">CrewAI</span>
+                        <span class="skill-badge">LangChain</span><span class="skill-badge">Semantic Kernel</span>
+                        <span class="skill-badge">Crawl4AI</span><span class="skill-badge">MCP</span>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <h4>Engineering</h4>
+                    <div class="skills-container">
+                        <span class="skill-badge">Python</span><span class="skill-badge">FastAPI</span>
+                        <span class="skill-badge">Java</span><span class="skill-badge">Spring Boot</span>
+                        <span class="skill-badge">Neo4j</span><span class="skill-badge">React.js</span>
+                        <span class="skill-badge">Angular</span><span class="skill-badge">Docker</span>
+                    </div>
+                </div>
+            </section>
 
-		<!-- Nav -->
-		<nav id="nav">
-			<ul class="links">
-				<li><a href="index.html">About me</a></li>
-				<li><a href="certif.html"><i class="fa fa-certificate"></i> Certificates</a></li>
-				 <li class="active"><a href="cv.html">Resume</a></li> 
-				<li ><a href="projects.html">Projects</a></li>
-			</ul>
-			<ul class="icons">
-				<li><a href="https://www.linkedin.com/in/chaima-attafi-914a56208"
-						class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
-				<li><a href="https://github.com/chayma-attafi" class="icon brands fa-github"><span
-							class="label">GitHub</span></a></li>
-				<li><a href="https://x.com/ChaymaAttafi2" class="icon brands fa-twitter"><span
-							class="label">Twitter</span></a></li>
-				<!--<li><a href="----"
-						class="ai ai-google-scholar-square ai-2x"></a></li>-->
-			</ul>
-		</nav>
+            <!-- Experience Section -->
+            <section class="resume-section">
+                <div class="section-header">
+                    <i class="fas fa-terminal"></i>
+                    <h2>Professional Experience</h2>
+                </div>
 
-		<!-- Main -->
-		<div id="main">
+                <!-- TALAN Consultant -->
+                <div class="timeline-item">
+                    <span class="timeline-date">Oct 2025 — Present</span>
+                    <h3 class="timeline-title">Junior AI Consultant</h3>
+                    <span class="timeline-org">TALAN Tunisie</span>
+                    <div class="timeline-desc">
+                        <ul>
+                            <li><strong>Intelligent Code Modernization:</strong> Architecting a framework to automate legacy COBOL migration using Knowledge Graph reasoning.</li>
+                            <li><strong>Knowledge Graph Visualization:</strong> Built a Neo4j-based dependency graph allowing engineers to explore business logic flow and inter-module relationships.</li>
+                            <li><strong>Multi-Agent Pipeline:</strong> Developed an AI pipeline using <i>Atomic Agent</i> to migrate CBP/JCL to modern Spring Boot & Angular stacks.</li>
+                        </ul>
+                    </div>
+                </div>
 
-			<!-- Post -->
-			<section class="post">
-				<a href="#" class="image main"><img src="images/Chayma_resume/Chaima_resume1.jpg" alt="" /></a>
-				<a href="#" class="image main"><img src="images/Chayma_resume/Chaima_resume2.jpg" alt="" /></a>
+                <!-- TALAN PFE -->
+                <!-- <div class="timeline-item">
+                    <span class="timeline-date">Feb 2025 — June 2025</span>
+                    <h3 class="timeline-title">End of Study Internship (PFE)</h3>
+                    <span class="timeline-org">TALAN Tunisie</span>
+                    <div class="timeline-desc">
+                        <p>Developed an <strong>AI-Powered Educational Assistant</strong> for academic collaboration:</p>
+                        <ul>
+                            <li>Built <strong>Science Watch Agent</strong> for real-time article monitoring.</li>
+                            <li>Implemented <strong>RAG-based Chat Agents</strong> with DOI verification for ethical fact-checking.</li>
+                            <li>Developed <strong>AI Writer & Presentation Agents</strong> with LaTeX export and bibliography automation.</li>
+                        </ul>
+                    </div>
+                </div> -->
 
-				
-			</section>
+                <!-- TALAN Internship -->
+                <!-- <div class="timeline-item">
+                    <span class="timeline-date">July 2024 — Aug 2024</span>
+                    <h3 class="timeline-title">AI Internship (Mirror of Life)</h3>
+                    <span class="timeline-org">TALAN Tunisie</span>
+                    <div class="timeline-desc">
+                        <p>Recipient of the <strong>Audience Award</strong> for CRISPR research.</p>
+                        <ul>
+                            <li>Increased CRISPR off-target prediction accuracy to <strong>88%</strong> using Random Forests and ML algorithms.</li>
+                            <li>Automated data collection using BLAST and web scraping, improving efficiency by 40%.</li>
+                        </ul>
+                    </div>
+                </div> -->
+            </section>
 
+            <!-- Education Section -->
+            <section class="resume-section">
+                <div class="section-header">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h2>Education</h2>
+                </div>
 
-		</div>
+                <div class="timeline-item">
+                    <span class="timeline-date">2022 — 2025</span>
+                    <h3 class="timeline-title">BSc. in Engineering (Computer Science)</h3>
+                    <span class="timeline-org">ESPRIT (Private School of Engineering and Technologies)</span>
+                    <p class="timeline-desc">Focus: Data Science, AI, and Software Engineering.</p>
+                </div>
 
-		<!-- Footer -->
-		<footer id="footer">
-			<section class="split contact">
-				<section>
+                <div class="timeline-item">
+                    <span class="timeline-date">2019 — 2022</span>
+                    <h3 class="timeline-title">BSc. Urban Planning and Development</h3>
+                    <span class="timeline-org">Higher Institute of Environmental Technologies</span>
+                    <p class="timeline-desc">Research on social housing approaches (ARRU).</p>
+                </div>
+            </section>
 
-					<h3>Email</h3>
-					<p><a href="#">chayma.attafi@esprit.tn</a></p>
-				</section>
+            <!-- PDF Download -->
+            <section class="resume-section">
+                <div class="pdf-card">
+                    <h2 style="font-family: 'Poppins';">Full Professional CV</h2>
+                    <p style="color: #94a3b8; margin-bottom: 2rem;">Download the official document for complete details, including research theses and full contact information.</p>
+                    
+                    <a href="images/Chayma_resume/Chaima-Attafi.pdf" download class="download-action">
+                        <i class="fas fa-cloud-download-alt"></i> Download Official PDF
+                    </a>
 
+                    <div class="preview-window">
+                        <iframe
+                            src="images/Chayma_resume/Chaima-Attafi.pdf#toolbar=0"
+                            width="100%"
+                            height="100%"
+                            style="border: none;"
+                        ></iframe>
+                    </div>
+                </div>
+            </section>
 
-				<section>
-					<h3>Social</h3>
-					<ul class="icons alt">
-						<li><a href="https://www.linkedin.com/in/chaima-attafi-914a56208"
-								class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
-						<li><a href="https://github.com/chayma-attafi" class="icon brands fa-github"><span
-									class="label">GitHub</span></a></li>
-						<li><a href="https://x.com/ChaymaAttafi2" class="icon brands fa-twitter"><span
-									class="label">Twitter</span></a></li>
-						<!--<li><a href="------"
-								class="ai ai-google-scholar-square ai-2x"></a></li>-->
-					</ul>
-			</section>
-		</footer>
+        </div>
+    </div>
 
-		<!-- Copyright -->
-	</div>
+    <footer id="footer" style="text-align: center; padding: 4rem 0; opacity: 0.5;">
+        <p>Built with ❤️ by Chaima Attafi | AI Engineer</p>
+    </footer>
 
-	<!-- Scripts -->
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/jquery.scrollex.min.js"></script>
-	<script src="assets/js/jquery.scrolly.min.js"></script>
-	<script src="assets/js/browser.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/main.js"></script>
 
 </body>
-
 </html>

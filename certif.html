@@ -1,166 +1,373 @@
 <!DOCTYPE HTML>
-
-<html>
+<html lang="en">
 
 <head>
-	<title>Certificate</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="assets/css/main.css" />
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons/css/academicons.min.css">
-	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" />
-	</noscript>
+    <title>Certificates | Chaima Attafi</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    
+    <!-- Modern Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --accent-color: #06b6d4;
+            --bg-dark: #0f172a;
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.03);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            margin: 0;
+            background-image: radial-gradient(circle at top right, #1e293b, #0f172a);
+        }
+
+        /* --- STICKY RIGHT-ALIGNED NAVBAR --- */
+        #nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 0 5%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        #nav ul.links li a {
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 0 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        #nav ul.links li.active a { color: var(--primary-color); }
+        #nav ul.links li a:hover { color: #fff; }
+
+        #nav ul.icons {
+            margin-left: 20px;
+            border-left: 1px solid rgba(255,255,255,0.2);
+            padding-left: 20px;
+        }
+
+        #nav ul.icons li a {
+            font-size: 1.2rem;
+            margin-left: 15px;
+            color: #94a3b8;
+        }
+
+        /* --- PAGE CONTENT --- */
+        #wrapper { padding-top: 100px; padding-bottom: 50px; }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header.major { text-align: center; margin-bottom: 4rem; }
+        header.major h1 {
+            font-size: 3rem;
+            font-family: 'Poppins';
+            background: linear-gradient(to right, #818cf8, #22d3ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- CERTIFICATE CARDS --- */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 25px;
+            margin-bottom: 4rem;
+        }
+
+        .cert-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .cert-img-container {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            background: #1e293b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cert-img-container img {
+            max-width: 90%;
+            max-height: 80%;
+            object-fit: contain;
+            transition: transform 0.5s ease;
+        }
+
+        .cert-card:hover .cert-img-container img {
+            transform: scale(1.05);
+        }
+
+        .cert-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .cert-badge {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--accent-color);
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .cert-content h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+            color: #fff;
+            line-height: 1.4;
+        }
+
+        .cert-content ul {
+            padding-left: 1.2rem;
+            margin: 0;
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        .cert-content ul li { margin-bottom: 5px; }
+
+        .cert-footer {
+            padding: 1rem 1.5rem;
+            background: rgba(0,0,0,0.2);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .date-label { font-size: 0.75rem; color: #64748b; }
+        
+        .verify-link {
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        #navPanelToggle, #navPanel {
+    display: none !important;
+}
+
+        /* Responsive */
+        @media screen and (max-width: 768px) {
+            #nav { justify-content: center; height: auto; flex-direction: column; padding: 10px 0; }
+            header.major h1 { font-size: 2.2rem; }
+        }
+    </style>
 </head>
 
-<body class="is-preload">
+<body>
 
-	<!-- Wrapper -->
-	<div id="wrapper">
+    <!-- Nav -->
+    <nav id="nav">
+        <ul class="links">
+            <li><a href="index.html">Bio</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="cv.html">Resume</a></li>
+            <li class="active"><a href="certif.html">Certificates</a></li>
+        </ul>
+        <ul class="icons">
+            <li><a href="https://www.linkedin.com/in/chaima-attafi-914a56208" class="fa-brands fa-linkedin"></a></li>
+            <li><a href="https://github.com/chayma-attafi" class="fa-brands fa-github"></a></li>
+        </ul>
+    </nav>
 
-		<!-- Header -->
-		<header id="header">
-			<a href="index.html" class="logo">Personal website</a>
-		</header>
+    <div id="wrapper">
+        <div class="container">
+            
+            <header class="major">
+                <h1>Certifications</h1>
+                <p>Advanced specializations in Agentic AI, Deep Learning, and Geospatial Data.</p>
+            </header>
 
-		<!-- Nav -->
-		<nav id="nav">
-			<ul class="links">
-				<li><a href="index.html">About me<a></li>
-				<li class="active"><a href="certif.html"><i class="fa fa-certificate">Certificates</i></a></li>
-				<!--<li><a href="publications.html">Publications</a></li>-->
-				<li><a href="cv.html">Resume</a></li> 
-				<li><a href="projects.html">Projects</a></li>
-			</ul>
-			<ul class="icons">
-				<li><a href="https://www.linkedin.com/in/chaima-attafi-914a56208"
-						class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
-				<li><a href="https://github.com/chayma-attafi" class="icon brands fa-github"><span
-							class="label">GitHub</span></a></li>
-				<li><a href="https://x.com/ChaymaAttafi2" class="icon brands fa-twitter"><span
-							class="label">Twitter</span></a></li>
-				<!--<li><a href="----"
-						class="ai ai-google-scholar-square ai-2x"></a></li>-->
-			</ul>
-		</nav>
+            <!-- NEWEST SECTION: ANTHROPIC MCP -->
+            <h2 style="border-left: 4px solid var(--primary-color); padding-left: 15px; margin-bottom: 2rem;">Agentic AI & MCP</h2>
+            <div class="cert-grid">
+                
+                <!-- Anthropic Advanced -->
+                <div class="cert-card" style="border: 1px solid var(--primary-color);">
+                    <div class="cert-img-container">
+                        <i class="fas fa-robot" style="font-size: 4rem; color: var(--primary-color);"></i>
+                    </div>
+                    <div class="cert-content">
+                        <span class="cert-badge">Anthropic Education</span>
+                        <h3>Model Context Protocol: Advanced Topics</h3>
+                        <ul>
+                            <li>Complex Server-Client Orchestration</li>
+                            <li>Advanced Resource Fetching & Tooling</li>
+                            <li>Multi-agent Communication Frameworks</li>
+                        </ul>
+                    </div>
+                    <div class="cert-footer">
+                        <span class="date-label">Jan 2, 2026</span>
+                        <a href="#" class="https://verify.skilljar.com/c/h84u3m65ccmw">Verified <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
 
-		<!-- Main -->
-		<div id="main">
+                <!-- Anthropic Intro -->
+                <div class="cert-card">
+                    <div class="cert-img-container">
+                        <i class="fas fa-project-diagram" style="font-size: 4rem; color: var(--accent-color);"></i>
+                    </div>
+                    <div class="cert-content">
+                        
+                        <span class="cert-badge">Anthropic Education</span>
+                        <h3>Introduction to Model Context Protocol</h3>
+                        <ul>
+                            <li>Standardizing AI-Data Interactions</li>
+                            <li>Building MCP Servers & Clients</li>
+                            <li>Context Injection for LLMs</li>
+                        </ul>
+                    </div>
+                    <div class="cert-footer">
+                        <span class="date-label">Jan 2, 2026</span>
+                        <a href="#" class="https://verify.skilljar.com/c/fxkbweu4eys5">Verified <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
 
-			<!-- Post -->
-			
+            </div>
 
-			<section class="post">
-				<img src="images/nvidia2.png" width="150" height="90" class="pic">
-				<p>Natural Language Processing (NLP) certification program with Nvidia. Through this program, I learned advanced NLP techniques like text processing and language generation. 
-					I want to thank Nvidia for the opportunity and my instructors for their support. With this certification, I'm eager to apply my skills in areas like virtual assistants and sentiment analysis.
-					 
-				</p>
-				<ul>
-					<li>Representation Learning</li>
-					<ul>
-						<li>Core NLP techniques and algorithms</li>
-						<li>Text preprocessing and feature engineering</li>
-						<li>Sentiment analysis and opinion mining</li>
-						<li>Named entity recognition and entity linking</li>
-						<li>Machine translation and language generation</li>
-						<li>Deep learning for NLP</li>
-					</ul>
-					<br>
-					<img src="images/certifnvidia.jpeg"  class="pic">
-					<br>
-					<p>Applications of AI for Predictive Maintenance certification program with Nvidia. Through this program, I learned advanced AI techniques for monitoring and predicting equipment failures. I want to thank Nvidia for the opportunity and my instructors for their support. With this certification, I'm eager to apply my skills in areas like predictive analytics and maintenance optimization.</p>
-				</p>
-					<ul>
-						<li>Predictive Maintenance</li>
-						<ul>
-							<li>Core AI techniques and algorithms</li>
-							<li>Data preprocessing and feature engineering</li>
-							<li>Failure prediction and anomaly detection</li>
-							<li>Machine learning models for predictive maintenance</li>
-							<li>Time series analysis and forecasting</li>
-							<li>Deep learning applications in maintenance</li>
-						</ul>
-						<br>
-						<img src="images/AI.png"  class="pic">
-					<br>
-					<img src="images/certifnvidia.jpeg"  class="pic">
-					<br>
-					<p>Fundamentals of Deep Learning certification program with Nvidia. Through this program, I learned essential deep learning techniques and frameworks. I want to thank Nvidia for the opportunity and my instructors for their support. With this certification, I'm eager to apply my skills in areas like computer vision and natural language processing.</p>
-				</p>
-					<ul>
-						<li>Deep Learning Fundamentals</li>
-						<ul>
-							<li>Core deep learning concepts and algorithms</li>
-							<li>Neural network architecture design</li>
-							<li>Data preprocessing and augmentation</li>
-							<li>Training and optimizing deep learning models</li>
-							<li>Convolutional neural networks (CNNs)</li>
-							<li>Recurrent neural networks (RNNs) and LSTMs</li>
-							<li>Applications in computer vision and NLP</li>
-						</ul>
-						<br>
-						<img src="images/deepcertif.png"  class="pic">
-					<br>
+            <!-- NVIDIA SECTION -->
+            <h2 style="border-left: 4px solid var(--accent-color); padding-left: 15px; margin-bottom: 2rem;">NVIDIA DLI Specializations</h2>
+            <div class="cert-grid">
+                
+                <!-- NLP -->
+                <div class="cert-card">
+                    <div class="cert-img-container">
+                        <img src="images/certifnvidia.jpeg" alt="NVIDIA">
+                    </div>
+                    <div class="cert-content">
+                        <span class="cert-badge">NVIDIA</span>
+                        <h3>Natural Language Processing (NLP)</h3>
+                        <ul>
+                            <li>Named Entity Recognition (NER)</li>
+                            <li>Machine Translation & Generation</li>
+                            <li>Sentiment Analysis & Opinion Mining</li>
+                        </ul>
+                    </div>
+                </div>
 
+                <!-- Predictive Maintenance -->
+                <div class="cert-card">
+                    <div class="cert-img-container">
+                        <img src="images/AI.png" alt="NVIDIA AI">
+                    </div>
+                    <div class="cert-content">
+                        <span class="cert-badge">NVIDIA</span>
+                        <h3>AI for Predictive Maintenance</h3>
+                        <ul>
+                            <li>Anomaly Detection & Failure Prediction</li>
+                            <li>Time Series Forecasting</li>
+                            <li>Maintenance Optimization Algorithms</li>
+                        </ul>
+                    </div>
+                </div>
 
-					<img src="images/QGISLogo.png" width="150" height="90" class="pic">
-				<p>I am proud to have completed a comprehensive training program in QGIS (Quantum Geographic Information System) 
-					under the guidance of Professor <a href="https://www.linkedin.com/in/aissaoui-ahmed-a92509174/"
-					style="color: blue"> Aissaoui Ahmed.</a>  
-					This certification represents my dedication to mastering geospatial data analysis and visualization 
-					techniques using industry-standard tools.
+                <!-- Deep Learning Fundamentals -->
+                <div class="cert-card">
+                    <div class="cert-img-container">
+                        <img src="images/deepcertif.png" alt="Deep Learning">
+                    </div>
+                    <div class="cert-content">
+                        <span class="cert-badge">NVIDIA</span>
+                        <h3>Fundamentals of Deep Learning</h3>
+                        <ul>
+                            <li>Neural Network Architecture Design</li>
+                            <li>Training & Optimization Frameworks</li>
+                            <li>CNNs, RNNs, and LSTMs</li>
+                        </ul>
+                    </div>
+                </div>
 
+            </div>
 
-				</p>
-				<ul>
-					<li>Representation Learning</li>
-					<ul>
-						<li><string>Instructor-led Training:</string>The program was conducted by Professor Aissaoui Ahmed, a seasoned expert in geospatial technology, ensuring high-quality instruction and hands-on learning experiences.</li>
-						<li><strong>Comprehensive Curriculum: The training covered essential concepts of QGIS, including data acquisition, manipulation, analysis, and cartographic visualization.</strong></li>
-						<li><strong>Practical Applications:</strong>Through practical exercises and real-world examples, I gained practical skills in using QGIS to solve spatial problems and create informative maps.</li>
-					</ul>
-					<br>
+            <!-- GEOSPATIAL SECTION -->
+            <h2 style="border-left: 4px solid #4ade80; padding-left: 15px; margin-bottom: 2rem;">Geospatial Engineering</h2>
+            <div class="cert-grid">
+                <div class="cert-card">
+                    <div class="cert-img-container">
+                        <img src="images/QGISLogo.png" alt="QGIS">
+                    </div>
+                    <div class="cert-content">
+                        <span class="cert-badge">Instructor-Led</span>
+                        <h3>QGIS Master Training</h3>
+                        <ul>
+                            <li>Geospatial Data Analysis & Mapping</li>
+                            <li>Spatial Problem Solving</li>
+                            <li>Cartographic Visualization</li>
+                        </ul>
+                        <p style="font-size: 0.75rem; color: #64748b; margin-top: 10px;">Led by Prof. Aissaoui Ahmed</p>
+                    </div>
+                    <div class="cert-footer">
+                        <img src="images/QGIS_certif.jpeg" style="height: 30px; border-radius: 4px;">
+                        <span class="date-label">Certified Practitioner</span>
+                    </div>
+                </div>
+            </div>
 
-					
-					<img src="images/QGIS_certif.jpeg"  class="pic">
-				</ul>
-			</section>
-		</div>
-		<!-- Footer -->
-		<!-- Copyright -->
-	</div>
-	<!-- Footer -->
-	<footer id="footer">
-		<section class="split contact">
-			<section>
-				<h3>Email</h3>
-				<p><a href="#">chayma.attafi@esprit.tn</a></p>
-			</section>
-			<section>
-				<h3>Social</h3>
-				<ul class="icons alt">
-					<li><a href="https://www.linkedin.com/in/chaima-attafi-914a56208"
-							class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
-					<li><a href="https://github.com/chayma-attafi" class="icon brands fa-github"><span
-								class="label">GitHub</span></a></li>
-					<li><a href="https://x.com/ChaymaAttafi2" class="icon brands fa-twitter"><span
-								class="label">Twitter</span></a></li>
-					<!--<li><a href="------"
-							class="ai ai-google-scholar-square ai-2x"></a></li>-->
-				</ul>
-			</section>
-		</section>
-	</footer>
-	<!-- Scripts -->
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/jquery.scrollex.min.js"></script>
-	<script src="assets/js/jquery.scrolly.min.js"></script>
-	<script src="assets/js/browser.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer" style="text-align: center; padding: 4rem 0; opacity: 0.6; font-size: 0.8rem;">
+        <p>&copy; Chaima Attafi 2026. Credentials verified and current.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
 
 </body>
-
 </html>

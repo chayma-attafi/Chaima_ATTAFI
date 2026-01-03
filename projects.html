@@ -1,144 +1,332 @@
 <!DOCTYPE HTML>
-
-<html>
+<html lang="en">
 
 <head>
-	<title>Projects</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="assets/css/main.css" />
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons/css/academicons.min.css">
-	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" />
-	</noscript>
+    <title>Projects | Chaima Attafi</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    
+    <!-- Modern Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --accent-color: #06b6d4;
+            --bg-dark: #0f172a;
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.03);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            margin: 0;
+            background-image: radial-gradient(circle at top right, #1e293b, #0f172a);
+        }
+
+        /* --- STICKY RIGHT-ALIGNED NAVBAR --- */
+        #nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 0 5%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        #nav ul.links li a {
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 0 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        #nav ul.links li.active a { color: var(--primary-color); }
+        #nav ul.links li a:hover { color: #fff; }
+
+        #nav ul.icons {
+            margin-left: 20px;
+            border-left: 1px solid rgba(255,255,255,0.2);
+            padding-left: 20px;
+        }
+
+        #nav ul.icons li a {
+            font-size: 1.2rem;
+            margin-left: 15px;
+            color: #94a3b8;
+            transition: color 0.3s;
+        }
+
+        #nav ul.icons li a:hover { color: var(--accent-color); }
+
+        /* --- PAGE CONTENT --- */
+        #wrapper { padding-top: 100px; padding-bottom: 50px; }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header.major { text-align: center; margin-bottom: 4rem; }
+        header.major h1 {
+            font-size: 3rem;
+            font-family: 'Poppins';
+            background: linear-gradient(to right, #818cf8, #22d3ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 3rem 0 1.5rem 0;
+        }
+
+        .section-title img { border-radius: 8px; }
+
+        /* --- PROJECT CARDS --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .project-card h3 {
+            margin-top: 0;
+            color: var(--accent-color);
+            font-family: 'Poppins';
+        }
+
+        .project-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+            flex-grow: 1;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .tag {
+            background: rgba(99, 102, 241, 0.15);
+            color: #818cf8;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .btn-link {
+            margin-top: 20px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        #navPanelToggle, #navPanel {
+    display: none !important;
+}
+        .btn-link:hover { color: var(--accent-color); }
+
+        /* Responsive */
+        @media screen and (max-width: 768px) {
+            #nav { justify-content: center; padding: 0; height: auto; flex-direction: column; }
+            #nav ul.icons { display: none; }
+            header.major h1 { font-size: 2.2rem; }
+        }
+    </style>
 </head>
 
-<body class="is-preload">
+<body>
 
-	<!-- Wrapper -->
-	<div id="wrapper">
+    <nav id="nav">
+        <ul class="links">
+            <li><a href="index.html">Bio</a></li>
+            <li class="active"><a href="projects.html">Projects</a></li>
+            <li><a href="cv.html">Resume</a></li>
+            <li><a href="certif.html">Certificates</a></li>
+        </ul>
+        <ul class="icons">
+            <li><a href="https://www.linkedin.com/in/chaima-attafi-914a56208" class="fa-brands fa-linkedin"></a></li>
+            <li><a href="https://github.com/chayma-attafi" class="fa-brands fa-github"></a></li>
+        </ul>
+    </nav>
 
-		<!-- Header -->
-		<header id="header">
-			<a href="index.html" class="logo">Personal website</a>
-		</header>
+    <div id="wrapper">
+        <div class="container">
+            
+            <header class="major">
+                <h1>Engineering & Innovation</h1>
+                <p>A collection of industrial AI systems and open-source contributions.</p>
+            </header>
 
-		<!-- Nav -->
-		<nav id="nav">
-			<ul class="links">
-				<li><a href="index.html">About me</a></li>
-				<li><a href="certif.html"><i class="fa fa-certificate">Certificates</i></a></li>
-				<!--<li><a href="publications.html">Publications</a></li>-->
-				 <li><a href="cv.html">Resume</a></li>
-				<li class="active"><a href="projects.html">Projects</a></li>
-			</ul>
-			<ul class="icons">
-				<li><a href="https://www.linkedin.com/in/chaima-attafi-914a56208"
-						class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
-				<li><a href="https://github.com/chayma-attafi" class="icon brands fa-github"><span
-							class="label">GitHub</span></a></li>
-				<li><a href="https://x.com/ChaymaAttafi2" class="icon brands fa-twitter"><span
-							class="label">Twitter</span></a></li>
-				<!--<li><a href="----"
-						class="ai ai-google-scholar-square ai-2x"></a></li>-->
-			</ul>
-		</nav>
+            <!-- TALAN SECTION -->
+            <div class="section-title">
+                <img src="images/talan.png" width="50" height="50" alt="TALAN">
+                <h2>Industrial AI @ Talan</h2>
+            </div>
 
-		<!-- Main -->
-		<div id="main">
+            <div class="project-grid">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <h3>CobolNext - Code Modernization Framework</h3>
+                    <p>Automated migration of legacy COBOL systems to modern full-stack architectures. Developed a Multi-Agent pipeline for dependency analysis and GraphRAG Chat Assistant for system exploration.</p>
+                    <div class="tech-tags">
+                        <span class="tag">Semantic Kernel</span>
+                        <span class="tag">Neo4j</span>
+                        <span class="tag">GraphRAG</span>
+                        <span class="tag">FastAPI</span>
+                    </div>
+                </div>
 
-			<!-- Post -->
-			<section class="post">
-				 <!--<a href="#" class="image main"><img src="images/chaima_project.jpeg" alt="" /></a>-->
-				 <img src="images/espritLogo.jpeg" width="90" height="90" class="pic">
-				<p>I have worked on numerous projects in <strong> software development</strong> . Here are some of the
-					notable open source contributions:</p>
-				<ul>
-					<li><a href="https://github.com/chayma-attafi/Web_Scraping/blob/main/scraping.py" style="color: blue">Web Scraping</a>: Developed a Selenium-based web scraper to extract and filter newly published articles
-						from a dynamic website, automating data collection and storage in JSON format.</li>
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <h3>SciAgent - Multi-Agent Scientific Research Assistant</h3>
+                    <p>A suite of Agentic tools including Science Watch (real-time monitoring), AI Writer (citation & LaTeX), and Presentation Generator using research papers.</p>
+                    <div class="tech-tags">
+                        <span class="tag">CrewAI</span>
+                        <span class="tag">LangGraph</span>
+                        <span class="tag">Crawl4ai</span>
+                        <span class="tag">AgenticRAG</span>
+                    </div>
+                    <a href="https://www.linkedin.com/posts/chaima-attafi_fact-latex-activity-7379238665937416192-8vMK?utm_source=share&utm_medium=member_desktop&rcm=ACoAADTWOqABJAFPxXfykhqK1BxG1Gp76wrlYwg" class="btn-link">View Demo <i class="fas fa-external-link-alt"></i></a>
 
+                </div>
 
-					<li><a href="https://www.linkedin.com/posts/chaima-attafi-914a56208_machinelearning-datascience-ai-activity-7202415580170170369-M6IK?utm_source=share&utm_medium=member_desktop"
-							style="color: blue">CO2 emission calculator for cars</a>: Creating a CO2 emission calculator for cars, using machine learning to estimate
-							emissions based on vehicle Canada data. This tool aims to raise awareness about
-							environmental impact and promote <strong> eco-friendly</strong>  transportation choices. Developed using
-							Agile Scrum methodology. Tools used: Python (for ML model), Flask (backend), Angular
-							(frontend), MySQL (database).</li>
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <h3>Mirror of Life</h3>
+                    <p>Winner of the Audience Award. Leveraged ML algorithms (Random Forests/Decision Trees) to boost CRISPR off-target prediction accuracy to 88%.</p>
+                    <div class="tech-tags">
+                        <span class="tag">Multimodal RAG</span>
+                        <span class="tag">Scikit-Learn</span>
+                        <span class="tag">BLAST Automation</span>
+                    </div>
+                    <a href="https://www.linkedin.com/posts/chaima-attafi_crispr-geneticediting-machinelearning-activity-7232038482397863937-eOTp?utm_source=share&utm_medium=member_desktop&rcm=ACoAADTWOqABJAFPxXfykhqK1BxG1Gp76wrlYwg" class="btn-link">View Demo <i class="fas fa-external-link-alt"></i></a>
 
+                </div>
 
-					
-							<li><a href="https://github.com/hssan861/COCO-ESPRIT" style="color: blue">Carpooling and Roommate Application for students</a>:
-								Development of a Carpooling and Roommate Application for students, including post
-								and comment management, as well as the use of<strong> WebSockets</strong> for the development of a
-								<a href="https://www.linkedin.com/posts/chaima-attafi-914a56208_websocket-springboot-angular-activity-7199434908224630784-HayE?utm_source=share&utm_medium=member_desktop" style="color: blue">
-									real-time chat platform</a>, 
-									also <a href="https://www.linkedin.com/posts/chaima-attafi-914a56208_nlp-ai-chatbot-activity-7206603439483584512-rqCa?utm_source=share&utm_medium=member_desktop" style="color: blue">
-										chatbot</a> 
-									using Flask (backend). Ensured image upload security
-								by extracting inappropriate content from images before uploading using <strong>easyOCR</strong> for <a href="https://www.linkedin.com/posts/chaima-attafi-914a56208_full-web-real-activity-7200936690654306304-AVmV?utm_source=share&utm_medium=member_desktop" style="color: blue">extract
-								data</a>, also for storage I use Flickr API. All while following the agile methodology of Scrum.
-								Tools used: Spring-Boot, Angular, MySQL, Flask, Flickr API.
-							</li>
+            </div>
 
-					<li><a href="https://github.com/hssan861/SalleDeSport_Symfony"
-							style="color: blue">Application for a Fitness Center</a>:
-						Development of a Management Application for a Fitness Center, including offer
-						management, reservations, and statistics on the number of reservations for each offer,
-						using the agile methodology of Scrum. Tools used: Java, Symfony, MySQL</li>
+            <!-- ACADEMIC / OPEN SOURCE SECTION -->
+            <div class="section-title">
+                <img src="images/espritLogo.jpeg" width="50" height="50" alt="ESPRIT">
+                <h2>Open Source & Academic</h2>
+            </div>
 
-						<li><a href="https://github.com/chayma-attafi/GESTION_DE_STOCK"
-							style="color: blue">Stock Management Application</a>: Development of a Spring-Boot Stock Management Application for the Backend and Angular 
-							for the Frontend
-							Tools used: Spring-Boot, Angular, MySQL.</li>
+            <div class="project-grid">
+                <!-- Project 4 -->
+                <div class="project-card">
+                    <h3>CO2 Emission Calculator</h3>
+                    <p>Estimating vehicle emissions using Machine Learning models trained on Canadian vehicle datasets. Built to raise environmental awareness.</p>
+                    <div class="tech-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Flask</span>
+                        <span class="tag">Angular</span>
+                        <span class="tag">Scrum</span>
+                    </div>
+                    <a href="https://www.linkedin.com/posts/chaima-attafi-914a56208_machinelearning-datascience-ai-activity-7202415580170170369-M6IK" class="btn-link">View Demo <i class="fas fa-external-link-alt"></i></a>
+                </div>
 
+                <!-- Project 5 -->
+                <div class="project-card">
+                    <h3>COCO-ESPRIT Platform</h3>
+                    <p>Student carpooling and roommate app. Integrated real-time chat via WebSockets and an EasyOCR security layer to filter inappropriate content.</p>
+                    <div class="tech-tags">
+                        <span class="tag">Spring Boot</span>
+                        <span class="tag">WebSockets</span>
+                        <span class="tag">NLP Chatbot</span>
+                        <span class="tag">EasyOCR</span>
+                    </div>
+                    <a href="https://github.com/hssan861/COCO-ESPRIT" class="btn-link">GitHub Code <i class="fab fa-github"></i></a>
+                </div>
 
-					<li><a href="#" style="color: blue">Managing municipal elections</a>: Development of a desktop application aimed at managing municipal elections, including
-							handling complaints and vote statistics, with display of the final vote result. Tools used: C
-							programming language.</li>
-					
-				</ul>
-				<p>For a complete list, visit my <a href="https://github.com/chayma-attafi"
-						style="color: blue">GitHub</a> profile.</p>
-			</section>
+                <!-- Project 6 -->
+                <div class="project-card">
+                    <h3>Web Scraping Automation</h3>
+                    <p>Selenium-based engine for dynamic websites to extract, filter, and store scientific articles in structured JSON formats.</p>
+                    <div class="tech-tags">
+                        <span class="tag">Selenium</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">Automation</span>
+                    </div>
+                    <a href="https://github.com/chayma-attafi/Web_Scraping" class="btn-link">GitHub Code <i class="fab fa-github"></i></a>
+                </div>
+            </div>
 
+        </div>
+    </div>
 
-		</div>
-
-		<!-- Footer -->
-		<footer id="footer">
-			<section class="split contact">
-				<section>
-					<h3>Email</h3>
-					<p><a href="#">chayma.attafi@esprit.tn</a></p>
-				</section>
-				<section>
-					<h3>Social</h3>
-					<ul class="icons alt">
-						<li><a href="https://www.linkedin.com/in/chaima-attafi-914a56208"
-								class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
-						<li><a href="https://github.com/chayma-attafi" class="icon brands fa-github"><span
-									class="label">GitHub</span></a></li>
-						<li><a href="https://x.com/ChaymaAttafi2" class="icon brands fa-twitter"><span
-									class="label">Twitter</span></a></li>
-						<!--<li><a href="------"
-								class="ai ai-google-scholar-square ai-2x"></a></li>-->
-					</ul>
-				</section>
-			</section>
-		</footer>
-
-		<!-- Copyright -->
+   <!-- Footer -->
+   <footer id="footer" style="text-align: center; padding: 4rem 0;">
+	<div class="container">
+		<section>
+			<h3 style="color: var(--accent-color);">Let's Build Something Intelligent</h3>
+			<p>Reach out via email: <a href="mailto:chayma.attafi@esprit.tn" style="color: white; text-decoration: none; font-weight: 600;">chayma.attafi@esprit.tn</a></p>
+			<div style="margin-top: 20px;">
+				<a href="https://www.linkedin.com/in/chaima-attafi-914a56208" style="color: #94a3b8; font-size: 1.5rem; margin: 0 10px;"><i class="fa-brands fa-linkedin"></i></a>
+				<a href="https://github.com/chayma-attafi" style="color: #94a3b8; font-size: 1.5rem; margin: 0 10px;"><i class="fa-brands fa-github"></i></a>
+				<a href="https://x.com/ChaymaAttafi2" style="color: #94a3b8; font-size: 1.5rem; margin: 0 10px;"><i class="fa-brands fa-x-twitter"></i></a>
+			</div>
+		</section>
 	</div>
+</footer>
 
-	<!-- Scripts -->
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/jquery.scrollex.min.js"></script>
-	<script src="assets/js/jquery.scrolly.min.js"></script>
-	<script src="assets/js/browser.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
-
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.scrollex.min.js"></script>
+<script src="assets/js/jquery.scrolly.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
 </body>
-
 </html>
