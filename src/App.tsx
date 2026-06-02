@@ -676,13 +676,37 @@ function ContactPage() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
-    const body = encodeURIComponent(`Name: ${name}\nFrom: ${email}\n\nMessage:\n${message}`);
-    window.open(`mailto:chaymaattafi3@gmail.com?subject=${subject}&body=${body}`);
-    setSent(true);
+    setLoading(true);
+    setError('');
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: 'bb0f1a1b-50d5-4238-98be-d67ed4fbb34f',
+          subject: `Portfolio Contact from ${name}`,
+          name,
+          email,
+          message,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSent(true);
+        setName(''); setEmail(''); setMessage('');
+      } else {
+        setError('Something went wrong. Please try again.');
+      }
+    } catch {
+      setError('Network error. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -748,12 +772,17 @@ function ContactPage() {
             </label>
             {sent ? (
               <div className="sent-confirmation">
-                <i className="fas fa-check-circle" /> Your email client is opening — message ready to send!
+                <i className="fas fa-check-circle" /> Message sent! I'll get back to you soon.
               </div>
             ) : (
-              <button type="submit">
-                <i className="fas fa-paper-plane" /> Send Message
-              </button>
+              <>
+                {error && <p className="form-error"><i className="fas fa-exclamation-circle" /> {error}</p>}
+                <button type="submit" disabled={loading}>
+                  {loading
+                    ? <><i className="fas fa-spinner fa-spin" /> Sending…</>
+                    : <><i className="fas fa-paper-plane" /> Send Message</>}
+                </button>
+              </>
             )}
           </form>
         </div>
