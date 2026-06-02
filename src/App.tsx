@@ -301,11 +301,9 @@ function App() {
   return (
     <>
       <div className="page-video-bg" aria-hidden="true">
-        <iframe
-          src="https://www.youtube.com/embed/8cRoBLyu5Jc?autoplay=1&mute=1&loop=1&playlist=8cRoBLyu5Jc&controls=0&disablekb=1&rel=0&showinfo=0&modestbranding=1&playsinline=1&start=38"
-          allow="autoplay; encrypted-media"
-          title="background"
-        />
+        <video autoPlay muted loop playsInline>
+          <source src={a('/videos/bg.mp4')} type="video/mp4" />
+        </video>
         <div className="page-video-overlay" />
       </div>
       <Nav activePage={page} onNavigate={setPage} />
