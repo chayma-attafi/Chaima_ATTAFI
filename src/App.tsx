@@ -274,6 +274,8 @@ const certificates: CertificateSection[] = [
   },
 ];
 
+const a = (p: string) => import.meta.env.BASE_URL + p.replace(/^\//, '');
+
 function getPageFromPath(): PageKey {
   const hash = window.location.hash.replace(/^#/, '') || '/';
   const map: Record<string, PageKey> = {
@@ -465,7 +467,7 @@ function BioPage() {
           </div>
         </div>
         <div className="hero-portrait">
-          <img src="/images/chaima.jpeg" alt="Chaima Attafi" />
+          <img src={a('/images/chaima.jpeg')} alt="Chaima Attafi" />
           <div className="hero-portrait-badge">
             <strong>AI Consultant</strong>
             <span>Talan Tunisie</span>
@@ -501,7 +503,7 @@ function CardSection({ title, cards }: { title: string; cards: MilestoneCard[] }
       <div className="milestone-grid">
         {cards.map((card) => (
           <article className="milestone-card" style={{ borderTopColor: card.border || 'var(--accent-color)' }} key={card.title}>
-            <img src={card.image} alt={card.title} />
+            <img src={a(card.image)} alt={card.title} />
             <div className="milestone-content">
               <span style={{ color: card.border || 'var(--accent-color)' }}>{card.date}</span>
               <h3>{card.title}</h3>
@@ -526,7 +528,7 @@ function ProjectsPage() {
         {projects.map((group) => (
           <section key={group.group}>
             <div className="section-title">
-              <img src={group.logo} width="50" height="50" alt="" />
+              <img src={a(group.logo)} width="50" height="50" alt="" />
               <h2>{group.group}</h2>
             </div>
             <div className="project-grid">
@@ -595,11 +597,11 @@ function ResumePage() {
           <div className="pdf-card">
             <h2>Full Professional CV</h2>
             <p>Download the official document for complete details, including research theses and full contact information.</p>
-            <a href="/images/Chayma_resume/Chaima-Attafi.pdf" download className="download-action">
+            <a href={a('/images/Chayma_resume/Chaima-Attafi.pdf')} download className="download-action">
               <i className="fas fa-cloud-download-alt" /> Download Official PDF
             </a>
             <div className="preview-window">
-              <iframe src="/images/Chayma_resume/Chaima-Attafi.pdf#toolbar=0" title="Chaima Attafi CV" />
+              <iframe src={a('/images/Chayma_resume/Chaima-Attafi.pdf') + '#toolbar=0'} title="Chaima Attafi CV" />
             </div>
           </div>
         </section>
@@ -644,7 +646,7 @@ function CertificatesPage() {
               {section.items.map((cert) => (
                 <article className={`cert-card ${cert.featured ? 'featured' : ''}`} key={cert.title}>
                   <div className="cert-img-container">
-                    {cert.image ? <img src={cert.image} alt={cert.title} /> : <i className={cert.icon} />}
+                    {cert.image ? <img src={a(cert.image)} alt={cert.title} /> : <i className={cert.icon} />}
                   </div>
                   <div className="cert-content">
                     <span className="cert-badge">{cert.issuer}</span>
@@ -656,7 +658,7 @@ function CertificatesPage() {
                   </div>
                   {(cert.date || cert.href || cert.footerImage) && (
                     <div className="cert-footer">
-                      {cert.footerImage && <img src={cert.footerImage} alt="" />}
+                      {cert.footerImage && <img src={a(cert.footerImage)} alt="" />}
                       {cert.date && <span className="date-label">{cert.date}</span>}
                       {cert.href && <a href={cert.href} target="_blank" rel="noreferrer">Verified <i className="fas fa-external-link-alt" /></a>}
                     </div>
