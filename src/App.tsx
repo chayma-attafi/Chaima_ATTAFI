@@ -61,11 +61,11 @@ type CertificateSection = {
 };
 
 const navItems: NavItem[] = [
-  { key: 'bio', label: 'Bio', path: '/' },
-  { key: 'projects', label: 'Projects', path: '/projects' },
-  { key: 'resume', label: 'Resume', path: '/resume' },
-  { key: 'certificates', label: 'Certificates', path: '/certificates' },
-  { key: 'contact', label: 'Contact', path: '/contact' },
+  { key: 'bio', label: 'Bio', path: '#/' },
+  { key: 'projects', label: 'Projects', path: '#/projects' },
+  { key: 'resume', label: 'Resume', path: '#/resume' },
+  { key: 'certificates', label: 'Certificates', path: '#/certificates' },
+  { key: 'contact', label: 'Contact', path: '#/contact' },
 ];
 
 const socialLinks: SocialLink[] = [
@@ -274,27 +274,22 @@ const certificates: CertificateSection[] = [
   },
 ];
 
-function getPageFromPath() {
-  const legacyPaths: Record<string, PageKey> = {
-    '/index.html': 'bio',
-    '/projects.html': 'projects',
-    '/cv.html': 'resume',
-    '/certif.html': 'certificates',
+function getPageFromPath(): PageKey {
+  const hash = window.location.hash.replace(/^#/, '') || '/';
+  const map: Record<string, PageKey> = {
+    '/': 'bio', '/projects': 'projects', '/resume': 'resume',
+    '/certificates': 'certificates', '/contact': 'contact',
   };
-  const pathname = window.location.pathname.replace(/\/$/, '') || '/';
-  if (legacyPaths[pathname]) {
-    return legacyPaths[pathname];
-  }
-  return navItems.find((item) => item.path === pathname)?.key || 'bio';
+  return map[hash] || 'bio';
 }
 
 function App() {
   const [page, setPage] = useState(getPageFromPath);
 
   useEffect(() => {
-    const onPopState = () => setPage(getPageFromPath());
-    window.addEventListener('popstate', onPopState);
-    return () => window.removeEventListener('popstate', onPopState);
+    const onHash = () => setPage(getPageFromPath());
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
   }, []);
 
   useEffect(() => {
@@ -334,7 +329,7 @@ function Nav({ activePage, onNavigate }: { activePage: PageKey; onNavigate: (pag
 
   function handleNavigate(event: MouseEvent<HTMLAnchorElement>, item: NavItem) {
     event.preventDefault();
-    window.history.pushState({}, '', item.path);
+    window.location.hash = item.path;
     onNavigate(item.key);
     setMenuOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -465,8 +460,8 @@ function BioPage() {
             portfolios, and production-grade agentic pipelines.
           </p>
           <div className="hero-actions">
-            <a href="/projects">View Projects</a>
-            <a href="/contact" className="secondary-action">Get In Touch</a>
+            <a href="#/projects">View Projects</a>
+            <a href="#/contact" className="secondary-action">Get In Touch</a>
           </div>
         </div>
         <div className="hero-portrait">
