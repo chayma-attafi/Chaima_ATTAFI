@@ -1,6 +1,6 @@
-import { ReactNode, MouseEvent, useEffect, useState } from 'react';
+import { ReactNode, MouseEvent, FormEvent, useEffect, useRef, useState } from 'react';
 
-type PageKey = 'bio' | 'projects' | 'resume' | 'certificates';
+type PageKey = 'bio' | 'projects' | 'resume' | 'certificates' | 'contact';
 
 type NavItem = {
   key: PageKey;
@@ -65,6 +65,7 @@ const navItems: NavItem[] = [
   { key: 'projects', label: 'Projects', path: '/projects' },
   { key: 'resume', label: 'Resume', path: '/resume' },
   { key: 'certificates', label: 'Certificates', path: '/certificates' },
+  { key: 'contact', label: 'Contact', path: '/contact' },
 ];
 
 const socialLinks: SocialLink[] = [
@@ -302,26 +303,47 @@ function App() {
 
   return (
     <>
+      <div className="page-video-bg" aria-hidden="true">
+        <iframe
+          src="https://www.youtube.com/embed/8cRoBLyu5Jc?autoplay=1&mute=1&loop=1&playlist=8cRoBLyu5Jc&controls=0&disablekb=1&rel=0&showinfo=0&modestbranding=1&playsinline=1&start=38"
+          allow="autoplay; encrypted-media"
+          title="background"
+        />
+        <div className="page-video-overlay" />
+      </div>
       <Nav activePage={page} onNavigate={setPage} />
       {page === 'bio' && <BioPage />}
       {page === 'projects' && <ProjectsPage />}
       {page === 'resume' && <ResumePage />}
       {page === 'certificates' && <CertificatesPage />}
-      <Footer compact={page === 'resume' || page === 'certificates'} />
+      {page === 'contact' && <ContactPage />}
+      <Footer compact={page === 'resume' || page === 'certificates' || page === 'contact'} />
     </>
   );
 }
 
 function Nav({ activePage, onNavigate }: { activePage: PageKey; onNavigate: (page: PageKey) => void }) {
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   function handleNavigate(event: MouseEvent<HTMLAnchorElement>, item: NavItem) {
     event.preventDefault();
     window.history.pushState({}, '', item.path);
     onNavigate(item.key);
+    setMenuOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  const navClass = ['', scrolled ? 'scrolled' : '', menuOpen ? 'menu-open' : ''].filter(Boolean).join(' ');
+
   return (
-    <nav id="nav" aria-label="Primary navigation">
+    <nav id="nav" className={navClass} aria-label="Primary navigation">
       <ul className="links">
         {navItems.map((item) => (
           <li key={item.key} className={activePage === item.key ? 'active' : ''}>
@@ -329,35 +351,143 @@ function Nav({ activePage, onNavigate }: { activePage: PageKey; onNavigate: (pag
           </li>
         ))}
       </ul>
-      <ul className="icons">
-        {socialLinks.map((link) => (
-          <li key={link.href}>
-            <a href={link.href} className={link.className} aria-label={link.label} target="_blank" rel="noreferrer" />
-          </li>
-        ))}
-      </ul>
+
+      <div className="nav-right">
+        <ul className="icons">
+          {socialLinks.map((link) => (
+            <li key={link.href}>
+              <a href={link.href} className={link.className} aria-label={link.label} target="_blank" rel="noreferrer" />
+            </li>
+          ))}
+        </ul>
+        <button className="nav-hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu" aria-expanded={menuOpen}>
+          <span /><span /><span />
+        </button>
+      </div>
     </nav>
   );
+}
+
+function ParticleNetwork() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let raf: number;
+    let W = 0, H = 0;
+
+    const resize = () => {
+      const dpr = window.devicePixelRatio || 1;
+      W = canvas.offsetWidth;
+      H = canvas.offsetHeight;
+      canvas.width  = W * dpr;
+      canvas.height = H * dpr;
+      ctx.scale(dpr, dpr);
+    };
+    resize();
+    window.addEventListener('resize', resize);
+
+    const COUNT = 110;
+    const MAX_DIST = 160;
+
+    const pts = Array.from({ length: COUNT }, () => ({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5,
+      r: Math.random() * 1.6 + 0.7,
+    }));
+
+    const tick = () => {
+      ctx.clearRect(0, 0, W, H);
+
+      for (const p of pts) {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > W) p.vx *= -1;
+        if (p.y < 0 || p.y > H) p.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(91,91,214,0.6)';
+        ctx.fill();
+      }
+
+      for (let i = 0; i < pts.length; i++) {
+        for (let j = i + 1; j < pts.length; j++) {
+          const dx = pts[i].x - pts[j].x;
+          const dy = pts[i].y - pts[j].y;
+          const d = Math.sqrt(dx * dx + dy * dy);
+          if (d < MAX_DIST) {
+            ctx.beginPath();
+            ctx.moveTo(pts[i].x, pts[i].y);
+            ctx.lineTo(pts[j].x, pts[j].y);
+            ctx.strokeStyle = `rgba(91,91,214,${(1 - d / MAX_DIST) * 0.32})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+      }
+
+      raf = requestAnimationFrame(tick);
+    };
+
+    tick();
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('resize', resize);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="hero-canvas-bg" aria-hidden="true" />;
 }
 
 function BioPage() {
   return (
     <main>
       <section id="intro">
-        <h1>CHAIMA ATTAFI</h1>
-        <p>
-          AI Engineer specializing in <span>Agentic AI</span>, RAG, LLM, and MCP.
-        </p>
+        <div className="hero-inner">
+        <div className="hero-copy">
+          <div className="eyebrow">
+            <span className="eyebrow-chip"><span className="dot" />AI Engineer</span>
+            <span className="eyebrow-chip"><span className="dot cyan" />Full-Stack Dev</span>
+            <span className="eyebrow-chip"><span className="dot green" />Agentic Systems</span>
+          </div>
+          <h1>CHAIMA<br />ATTAFI</h1>
+          <p className="hero-tagline">
+            I design <strong>intelligent systems</strong> connecting research, automation, and
+            production engineering and build full-stack websites, custom
+            portfolios, and production-grade agentic pipelines.
+          </p>
+          <div className="hero-actions">
+            <a href="/projects">View Projects</a>
+            <a href="/contact" className="secondary-action">Get In Touch</a>
+          </div>
+        </div>
+        <div className="hero-portrait">
+          <img src="/images/chaima.jpeg" alt="Chaima Attafi" />
+          <div className="hero-portrait-badge">
+            <strong>AI Consultant</strong>
+            <span>Talan Tunisie</span>
+          </div>
+        </div>
+        </div>
       </section>
 
       <div id="main">
         <section className="bio-section">
-          <img src="/images/chaima.jpeg" alt="Chaima Attafi" />
           <div>
             <h2>The Mission</h2>
             <p>
-              I build systems that bridge the gap between research and real-world application, leveraging Generative AI
-              and Multi-Agent Systems to create ethical, high-performance, and scalable solutions.
+              I build systems that bridge the gap between research and real-world application — from
+              <strong> full-stack websites</strong> and custom portfolios to <strong>agentic pipelines</strong> and
+              GraphRAG architectures. My work spans Generative AI, Multi-Agent Systems, and production engineering,
+              always aiming for solutions that are ethical, high-performance, and built to scale.
             </p>
           </div>
         </section>
@@ -541,6 +671,97 @@ function CertificatesPage() {
             </div>
           </section>
         ))}
+      </div>
+    </main>
+  );
+}
+
+function ContactPage() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [sent, setSent] = useState(false);
+
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
+    const body = encodeURIComponent(`Name: ${name}\nFrom: ${email}\n\nMessage:\n${message}`);
+    window.open(`mailto:chaymaattafi3@gmail.com?subject=${subject}&body=${body}`);
+    setSent(true);
+  }
+
+  return (
+    <main className="page-shell">
+      <div className="container contact-container">
+        <header className="major">
+          <h1>Get In Touch</h1>
+          <p>Have a project in mind, need a full-stack website, an agentic system, or just want to collaborate? I'd love to hear from you.</p>
+        </header>
+
+        <div className="contact-grid">
+          <div className="contact-info">
+            <h3>Let's build something intelligent</h3>
+            <p>Available for AI consulting, full-stack web development, custom portfolios, and agentic pipeline design.</p>
+            <div className="contact-links">
+              <a href="mailto:chaymaattafi3@gmail.com">
+                <i className="fas fa-envelope" />
+                chaymaattafi3@gmail.com
+              </a>
+              <a href="https://www.linkedin.com/in/chaima-attafi-914a56208" target="_blank" rel="noreferrer">
+                <i className="fab fa-linkedin" />
+                LinkedIn Profile
+              </a>
+              <a href="https://github.com/chayma-attafi" target="_blank" rel="noreferrer">
+                <i className="fab fa-github" />
+                GitHub
+              </a>
+            </div>
+          </div>
+
+          <form className="contact-form" onSubmit={handleSubmit}>
+            <div className="form-row">
+              <label>
+                Name
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  placeholder="Your name"
+                />
+              </label>
+              <label>
+                Email
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  placeholder="your@email.com"
+                />
+              </label>
+            </div>
+            <label>
+              Message
+              <textarea
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                required
+                placeholder="Tell me about your project…"
+                rows={6}
+              />
+            </label>
+            {sent ? (
+              <div className="sent-confirmation">
+                <i className="fas fa-check-circle" /> Your email client is opening — message ready to send!
+              </div>
+            ) : (
+              <button type="submit">
+                <i className="fas fa-paper-plane" /> Send Message
+              </button>
+            )}
+          </form>
+        </div>
       </div>
     </main>
   );
