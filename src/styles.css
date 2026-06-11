@@ -463,6 +463,15 @@ body::before {
 
 .btn-link:hover { color: var(--cyan); }
 
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-top: 20px;
+}
+
+.project-links .btn-link { margin-top: 0; }
+
 /* ── RESUME ──────────────────────────────────────────────────── */
 .resume-container { max-width: 920px; }
 .resume-section { margin-bottom: 4rem; }
@@ -565,15 +574,15 @@ body::before {
 .contact-form { display: flex; flex-direction: column; gap: 20px; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 
-.contact-form label { display: flex; flex-direction: column; gap: 8px; color: var(--muted); font-size: .75rem; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; }
+.contact-form label { display: flex; flex-direction: column; gap: 8px; color: var(--ink); font-size: .75rem; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; }
 
 .contact-form input,
 .contact-form textarea {
   width: 100%; padding: 14px 16px;
-  border: 1px solid var(--border); border-radius: 12px;
-  background: rgba(255,255,255,.06); color: var(--ink);
+  border: 1px solid var(--border-hover); border-radius: 12px;
+  background: var(--surface-2); color: var(--ink);
   font-family: inherit; font-size: .96rem;
-  outline: none; transition: border-color .2s ease, box-shadow .2s ease;
+  outline: none; transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
   resize: vertical;
 }
 
