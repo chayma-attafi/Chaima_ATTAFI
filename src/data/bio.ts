@@ -19,7 +19,7 @@ export const journeyCards: MilestoneCard[] = [
     border: '#fbbf24',
     image: '/images/succ/graduation.jpeg',
     date: '24 September 2025',
-    title: 'Engineering Degree',
+    title: 'Engineering Degree - ESPRIT - Software Engineering & AI',
     body: 'Specializing in Software Engineering and AI at ESPRIT.',
   },
   {
@@ -35,6 +35,13 @@ export const journeyCards: MilestoneCard[] = [
     title: 'Leading workshop on Symfony at GDSC',
     body: 'Fostering technical growth as GDSC Lead and AI community organizer at ESPRIT.',
   },
+  {
+  border: '#10b981',
+  image: '/images/succ/urbanisme.png',
+  date: 'July 2022',
+  title: 'Graduation - Urban Planning @ ISTEUB',
+  body: 'Earned my degree in Urban Planning, building expertise in urban development, GIS, spatial analysis, and sustainable city planning.',
+},
 ];
 
 export const milestoneCards: MilestoneCard[] = [
